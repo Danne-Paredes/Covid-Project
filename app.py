@@ -1,21 +1,19 @@
-from flask import Flask, render_template, redirect, Blueprint, jsonify
-import pymongo
 from dotenv import load_dotenv
 from os import getenv
+from flask import Flask, render_template, redirect, jsonify
+from flask_pymongo import PyMongo
 
+# Load environment variables
+load_dotenv()
 
 # Create an instance of Flask
-# app = Flask(__name__)
-# app.config["MONGO_URI"] = "mongodb://localhost:27017"
-
-# Use PyMongo to establish Mongo connection
-connection = "mongodb://localhost:27017"
-client= pymongo.MongoClient(connection)
-
-    # Create an instance of Flask
 app = Flask(__name__)
 
+# Get the connection string for the database
+app.config['MONGO_URI'] = getenv('MONGO_URI', '')
 
+# Use PyMongo to establish Mongo connection
+mongo = PyMongo(app)
 
 
 
@@ -38,7 +36,7 @@ def index():
 @app.route("/api")
 def api():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    data1= client["covid_db"].GUSdata.find({}, {'_id': False})
+    data1= mongo.db.GUSdata.find({}, {'_id': False})
 
     cases = [case for case in data1]
     data = {
@@ -51,7 +49,7 @@ def api():
 @app.route("/api/march")
 def marchapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    marchcoll= client["covid_db"].GUSdata.find({ "Date":  {"$regex":"3/\d*/2020"}}, {'_id': False})
+    marchcoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"3/\d*/2020"}}, {'_id': False})
 
     marchcases = [case for case in marchcoll]
     marchdata = {
@@ -64,7 +62,7 @@ def marchapi():
 @app.route("/api/april")
 def aprilapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    aprilcoll= client["covid_db"].GUSdata.find({ "Date":  {"$regex":"4/\d*/2020"}}, {'_id': False})
+    aprilcoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"4/\d*/2020"}}, {'_id': False})
 
     aprilcases = [case for case in aprilcoll]
     aprildata = {
@@ -78,7 +76,7 @@ def aprilapi():
 @app.route("/api/may")
 def mayapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    maycoll= client["covid_db"].GUSdata.find({ "Date":  {"$regex":"5/\d*/2020"}}, {'_id': False})
+    maycoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"5/\d*/2020"}}, {'_id': False})
 
     maycases = [case for case in maycoll]
     maydata = {
@@ -91,7 +89,7 @@ def mayapi():
 @app.route("/api/june")
 def juneapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    junecoll= client["covid_db"].GUSdata.find({ "Date":  {"$regex":"6/\d*/2020"}}, {'_id': False})
+    junecoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"6/\d*/2020"}}, {'_id': False})
 
     junecases = [case for case in junecoll]
     junedata = {
@@ -104,7 +102,7 @@ def juneapi():
 @app.route("/api/july")
 def julyapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    julycoll= client["covid_db"].GUSdata.find({ "Date":  {"$regex":"7/\d*/2020"}}, {'_id': False})
+    julycoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"7/\d*/2020"}}, {'_id': False})
 
     julycases = [case for case in julycoll]
     julydata = {
@@ -116,7 +114,7 @@ def julyapi():
 
 @app.route("/api/all-heat")
 def heatAPI():
-    Heatcoll= client["covid_db"].allHeat.find({}, {'_id': False})
+    Heatcoll= mongo.db.allHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
@@ -128,7 +126,7 @@ def heatAPI():
 
 @app.route("/api/march-heat")
 def heatMarchAPI():
-    HeatMarcoll= client["covid_db"].marchHeat.find({}, {'_id': False})
+    HeatMarcoll= mongo.db.marchHeat.find({}, {'_id': False})
 
     HeatMarcases = [case for case in HeatMarcoll]
     HeatMardata = {
@@ -140,7 +138,7 @@ def heatMarchAPI():
 
 @app.route("/api/april-heat")
 def heatAprilAPI():
-    Heatcoll= client["covid_db"].aprilHeat.find({}, {'_id': False})
+    Heatcoll= mongo.db.aprilHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
@@ -152,7 +150,7 @@ def heatAprilAPI():
 
 @app.route("/api/may-heat")
 def heatMayAPI():
-    Heatcoll= client["covid_db"].mayHeat.find({}, {'_id': False})
+    Heatcoll= mongo.db.mayHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
@@ -164,7 +162,7 @@ def heatMayAPI():
 
 @app.route("/api/june-heat")
 def heatJuneAPI():
-    Heatcoll= client["covid_db"].juneHeat.find({}, {'_id': False})
+    Heatcoll= mongo.db.juneHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
@@ -176,7 +174,7 @@ def heatJuneAPI():
 
 @app.route("/api/july-heat")
 def heatJulyAPI():
-    Heatcoll= client["covid_db"].julyHeat.find({}, {'_id': False})
+    Heatcoll= mongo.db.julyHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
