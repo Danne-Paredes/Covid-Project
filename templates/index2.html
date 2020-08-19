@@ -11,7 +11,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
-<!-- <link rel="stylesheet" href="/docs/4.5/dist/css/bootstrap.min.css"  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+<!-- <link rel="stylesheet" href="/docs/4.5/dist/css/bootstrap.min.css"  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> --> -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 <!-- Leaflet CSS -->
@@ -136,16 +136,9 @@ crossorigin=""/>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">United States Covid Data</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-          <!-- <div class="btn-group mr-2" id="selDataset">
-            <button type="button" value= "dataset1" class="btn btn-sm btn-outline-secondary">Confirmed</button>
-            <button type="button" value= "dataset2" class="btn btn-sm btn-outline-secondary">Recovered</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Deaths</button>
-          </div> -->
-          <select id="selDataset">
-            <option value="dataset1">Confirmed</option>
-            <option value="dataset2">Recovered</option>
-            <option value="dataset3">Deaths</option>
-          </select>
+          <button type="button" id= "dataset1" class="btn btn-sm btn-outline-secondary">Confirmed</button>
+            <button type="button" id= "dataset2" class="btn btn-sm btn-outline-secondary">Recovered</button>
+            <button type="button" id= "dataset3" class="btn btn-sm btn-outline-secondary">Deaths</button>
           <select id="selDate">
             <option value="dataset1">All</option>
             <option value="dataset2">March</option>
@@ -158,9 +151,18 @@ crossorigin=""/>
         </div>
       </div>
 
-      <div id="plot" ></div>
+
+
       
-      <div id="pie" width="400" height="400"></div>
+
+
+  
+      <div id="plot" ></div>
+
+      <div id = "pie">
+        <canvas id="myChart" width="10" height="10"></canvas>
+      </div>
+      <div id="plot" ></div>
 
 
 
@@ -354,7 +356,6 @@ crossorigin=""/>
 <div id="my_dataviz"></div>
 
 <body>
-
   
   <div id="map"></div>
   
