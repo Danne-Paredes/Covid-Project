@@ -28,8 +28,11 @@ def after_request(response):
 
 @app.route("/")
 def index():
-    # mars = mongo.db.mars.find_one()
     return render_template("index2.html")
+
+@app.route("/calijuly")
+def caliJuly():
+    return render_template("calijuly.html")
 
 
 # Route that will trigger the scrape function
