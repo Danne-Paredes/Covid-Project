@@ -2,6 +2,7 @@
 var myMap = L.map("map", {
     center: [38.7128, -97.0059],
     zoom: 5,
+    scrollWheelZoom: false
 
   })
 
@@ -25,22 +26,22 @@ var myMap = L.map("map", {
   function updateAPI () {
       var dateMenu = d3.select("#selDate");
       var dateset = dateMenu.property("value");
-      if (dateset === 'dataset1') {
+      if (dateset === 'set1') {
           route = "api/all-heat"
       }
-      if (dateset === 'dataset2') {
+      if (dateset === 'set2') {
           route = "api/march-heat"
       }
-      if (dateset === 'dataset3') {
+      if (dateset === 'set3') {
           route = "api/april-heat"
       }
-      if (dateset === 'dataset4') {
+      if (dateset === 'set4') {
           route = "api/may-heat"
       }
-      if (dateset === 'dataset5') {
+      if (dateset === 'set5') {
           route = "api/june-heat"
       }
-      if (dateset === 'dataset6') {
+      if (dateset === 'set6') {
           route = "api/july-heat"
       }
       console.log(dateset)
@@ -52,7 +53,7 @@ var myMap = L.map("map", {
 function choroMap(route) {
   // Grab data with d3
   d3.json(route).then(function(data) {
-    // console.log(data)
+    console.log(data)
 
     // Create a new choropleth layer
     geojson = L.choropleth(data.cases[0], {
@@ -81,7 +82,7 @@ function choroMap(route) {
         layer.bindPopup(`<h2 style="text-align:center;">${feature.properties.name}</h3><br><b>Confirmed Cases:</b> ${feature.properties.confirmed}<br><b>Recovered:</b> ${feature.properties.recovered}<br><b>Deaths:</b> ${feature.properties.deaths}`);
       }
     }).addTo(myMap);
-    // console.log(geojson)
+    console.log(geojson)
     
 
     // Set up the legend
@@ -109,8 +110,10 @@ function choroMap(route) {
       return div;
     };
 
-    // // Adding legend to the map
-    // legend.addTo(myMap);
+    // Adding legend to the map
+    if(legend instanceof L.Control){map.removeControl(legend);}
+    legend.addTo(myMap);
+    // myMap.scrollZoom.disable();
 
   });
 }

@@ -28,11 +28,27 @@ def after_request(response):
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index2.html")
 
 @app.route("/calijuly")
-def caliJuly():
+def calijuly():
     return render_template("calijuly.html")
+
+
+@app.route("/dataindex")
+def dataindex():
+    return render_template("dataindex.html")
+
+
+@app.route("/pie")
+def pieindex():
+    return render_template("pieindex.html")
+
+
+@app.route("/heatindex")
+def heatindex():
+    return render_template("heatindex.html")
+
 
 
 # Route that will trigger the scrape function
@@ -49,146 +65,182 @@ def api():
 
     return jsonify(data)
 
+
 @app.route("/api/march")
 def marchapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    marchcoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"3/\d*/2020"}}, {'_id': False})
+    marchcoll = mongo.db.GUSdata.find(
+        {"Date":  {"$regex": "3/\d*/2020"}}, {'_id': False})
 
     marchcases = [case for case in marchcoll]
     marchdata = {
 
-    "cases": marchcases
+        "cases": marchcases
     }
 
     return jsonify(marchdata)
 
+
 @app.route("/api/april")
 def aprilapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    aprilcoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"4/\d*/2020"}}, {'_id': False})
+    aprilcoll = mongo.db.GUSdata.find(
+        {"Date":  {"$regex": "4/\d*/2020"}}, {'_id': False})
 
     aprilcases = [case for case in aprilcoll]
     aprildata = {
 
-    "cases": aprilcases
+        "cases": aprilcases
     }
 
     return jsonify(aprildata)
 
-    
+
 @app.route("/api/may")
 def mayapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    maycoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"5/\d*/2020"}}, {'_id': False})
+    maycoll = mongo.db.GUSdata.find(
+        {"Date":  {"$regex": "5/\d*/2020"}}, {'_id': False})
 
     maycases = [case for case in maycoll]
     maydata = {
 
-    "cases": maycases
+        "cases": maycases
     }
 
     return jsonify(maydata)
 
+
 @app.route("/api/june")
 def juneapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    junecoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"6/\d*/2020"}}, {'_id': False})
+    junecoll = mongo.db.GUSdata.find(
+        {"Date":  {"$regex": "6/\d*/2020"}}, {'_id': False})
 
     junecases = [case for case in junecoll]
     junedata = {
 
-    "cases": junecases
+        "cases": junecases
     }
 
     return jsonify(junedata)
 
+
 @app.route("/api/july")
 def julyapi():
     # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
-    julycoll= mongo.db.GUSdata.find({ "Date":  {"$regex":"7/\d*/2020"}}, {'_id': False})
+    julycoll = mongo.db.GUSdata.find(
+        {"Date":  {"$regex": "7/\d*/2020"}}, {'_id': False})
 
     julycases = [case for case in julycoll]
     julydata = {
 
-    "cases": julycases
+        "cases": julycases
     }
 
     return jsonify(julydata)
 
+
+
+
+
+
+# Route that will trigger the scrape function
+@app.route("/apidata")
+def apidata():
+    # data1 = mongo["covid_db"].covid.find({}, {'_id': False})
+    data2 = mongo.db.USdata.find({}, {'_id': False})
+
+    cases2 = [case for case in data2]
+    data2 = {
+
+        "cases": cases2
+    }
+
+    return jsonify(data2)
+
+
+
+
+
+
+
 @app.route("/api/all-heat")
 def heatAPI():
-    Heatcoll= mongo.db.allHeat.find({}, {'_id': False})
+    Heatcoll = mongo.db.allHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
 
-    "cases": Heatcases
+        "cases": Heatcases
     }
 
     return jsonify(Heatdata)
 
+
 @app.route("/api/march-heat")
 def heatMarchAPI():
-    HeatMarcoll= mongo.db.marchHeat.find({}, {'_id': False})
+    HeatMarcoll = mongo.db.marchHeat.find({}, {'_id': False})
 
     HeatMarcases = [case for case in HeatMarcoll]
     HeatMardata = {
 
-    "cases": HeatMarcases
+        "cases": HeatMarcases
     }
 
     return jsonify(HeatMardata)
 
+
 @app.route("/api/april-heat")
 def heatAprilAPI():
-    Heatcoll= mongo.db.aprilHeat.find({}, {'_id': False})
+    Heatcoll = mongo.db.aprilHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
 
-    "cases": Heatcases
+        "cases": Heatcases
     }
 
     return jsonify(Heatdata)
+
 
 @app.route("/api/may-heat")
 def heatMayAPI():
-    Heatcoll= mongo.db.mayHeat.find({}, {'_id': False})
+    Heatcoll = mongo.db.mayHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
 
-    "cases": Heatcases
+        "cases": Heatcases
     }
 
     return jsonify(Heatdata)
+
 
 @app.route("/api/june-heat")
 def heatJuneAPI():
-    Heatcoll= mongo.db.juneHeat.find({}, {'_id': False})
+    Heatcoll = mongo.db.juneHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
 
-    "cases": Heatcases
+        "cases": Heatcases
     }
 
     return jsonify(Heatdata)
+
 
 @app.route("/api/july-heat")
 def heatJulyAPI():
-    Heatcoll= mongo.db.julyHeat.find({}, {'_id': False})
+    Heatcoll = mongo.db.julyHeat.find({}, {'_id': False})
 
     Heatcases = [case for case in Heatcoll]
     Heatdata = {
 
-    "cases": Heatcases
+        "cases": Heatcases
     }
 
     return jsonify(Heatdata)
-
-
-
 
 
 if __name__ == "__main__":
